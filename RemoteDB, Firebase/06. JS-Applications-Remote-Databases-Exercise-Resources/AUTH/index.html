@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth demo</title>
+    <link rel="stylesheet" href="styles.css"> //cssа е с линк
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>//то settings във firebase. Това е SDK на firebase, който ни позволява да работим без fetch.
+//Първо се прави проект, auth, и чак след това могат да се вземат тези данни
+//https://firebase.google.com/docs/auth/web/start - тук от секция web се взимат настройките за auth. Предоставят се методи за регистриране sign-in и т.н
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-auth.js"></script>
+
+<script src="firebase.js"></script>//останалите са със src
+</head>
+<body>
+    <h2>Register form</h2>
+
+    <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
+    
+    <div id="id01" class="modal">
+      
+      <form  id="register-form" class="modal-content animate" action="/action_page.php" method="post">
+            
+        <div class="container">
+          <label for="uname"><b>Email</b></label>
+          <input id="email" type="email" placeholder="Enter Email" name="uname" required>
+    
+          <label for="psw"><b>Password</b></label>
+          <input id="password" type="password" placeholder="Enter Password" name="psw" required>
+            
+          <button id="register-btn" type="submit">Register</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+    
+        
+      </form>
+    </div> 
+    <script src="auth.js"></script>//зареди го СЛЕД КАТО заредиш дом. Защото в него се работи по дома и ако не е зареден ще се счупи.
+</body>
+</html>

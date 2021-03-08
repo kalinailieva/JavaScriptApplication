@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My movies</title>
+     <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.2/firebase-app.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-firestore.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="header">Log in form</header>
+   <div class="login-form">
+       <label for="username">Username</label>
+       <input type = "text" id="username"/>
+       <label for="password">Password</label>
+       <input type="password" id="password"/>
+       <button id="login-btn">Login</button>
+   </div>
+   <ul id="movies"></ul>
+
+<script src="config.js"></script>
+//логиката на firebase е изкарана в отделен файл, за да не пречи. Така се прави връзката с него.
+<script>
+
+  const auth = firebase.auth();
+  let buttonElement = document.getElementById('login-btn');
+  buttonElement.addEventListener('click', onUserLogin);
+
+  function onUserLogin(e){
+      let usernameElement = document.getElementById('username');
+      let passwordElement = document.getElementById('password');
+      let headerElement = document.getElementById('header');
+    firebase.auth().createUserWithEmailAndPassword(usernameElement.value, passwordElement.value)
+  .then((user) => {
+console.log('You are signed');
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ..
+  });
+  }
+
+let moviesElement = document.getElementById('movies');
+let url = "https://movies-6f705-default-rtdb.firebaseio.com/.json";
+
+fetch(url)
+.then((response) => response.json())
+.then((data) =>{
+let movieTitles = Object
+.keys(data)
+.map(x => `<li class="movie" data-key=${x}>${x}</li>`)
+.join();
+
+moviesElement.innerHTML = movieTitles;
+
+moviesElement.addEventListener('click', e =>{
+    console.log(e.target.dataset.key); //точно където е кликнато
+})
+})
+</script>
+</body>
+</html>

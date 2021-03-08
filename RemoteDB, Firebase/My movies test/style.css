@@ -1,0 +1,6 @@
+.movie:hover{
+    background-color: blanchedalmond;
+}
+.movie{
+    cursor: pointer;
+}
